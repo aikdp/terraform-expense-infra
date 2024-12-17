@@ -2,13 +2,13 @@
 module "app_alb" {
   source = "terraform-aws-modules/alb/aws"
 
-  name    = "${local.resource_name}-app-alb"    #expense-dec-app-alb
+  name    = "${local.resource_name}-app-alb"      #expense-dev-app-alb
   vpc_id  = local.vpc_id
-  subnets = local.private_subnet_id    #app-alb is for backend, so we rae using Private subnet (AZ)
-  internal = true   #default is false. Not giving  public access, it is backend right
-  security_groups = [local.app_alb_sg_id]   # LIST sg is giving for ALB eqyalent to manually selecing sg id.
-  create_security_group = false #defalut is true, if not give flase, it will take default sg id
-  enable_deletion_protection = false    #put this false, it will dlete, otherwise not delete
+  subnets = local.private_subnet_id               #app-alb is for backend, so we rae using Private subnet (AZ)
+  internal = true                                 #default is false. Not giving  public access, it is backend right
+  security_groups = [local.app_alb_sg_id]         # LIST sg is giving for ALB eqyalent to manually selecing sg id.
+  create_security_group = false                   #defalut is true, if not give flase, it will take default sg id
+  enable_deletion_protection = false            #put this false, it will dlete, otherwise not delete
   tags = merge(
     var.common_tags,
     var.app_alb_tags
@@ -16,7 +16,7 @@ module "app_alb" {
 }
 
 
-#Createing Load Balancer listener using TERAFORM
+#Creating Load Balancer listener using TERRAFORM
 
 resource "aws_lb_listener" "http" {
   load_balancer_arn = module.app_alb.arn    #check o/p attribute    arn--endpoint id

@@ -17,3 +17,7 @@ output "bastion_sg_id" {
 output "ansible_sg_id" {
   value       = module.ansible_sg.id
 }
+
+output "vpn_sg_id" {
+  value       = module.vpn_sg.id
+}
