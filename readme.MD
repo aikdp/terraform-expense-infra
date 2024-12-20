@@ -1,3 +1,6 @@
+# Expense Architecture
+![alt text](terraform-expense-infra-dev.drawio.svg)
+
 # Terraform: Taint
 Purpose:
 
