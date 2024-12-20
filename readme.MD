@@ -5,4 +5,4 @@ Tainting a resource marks it for recreation during the next terraform apply oper
 
 Command: You can taint a resource using:
 
-terraform taint <resource>
+** terraform taint <resource>
