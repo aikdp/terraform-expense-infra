@@ -12,7 +12,7 @@ Command: You can taint a resource using:
 terraform taint <resource>
 ```
 
-![alt text](Draw.io/.$terraform-vpn.drawio.bkp)
+![alt text](Draw.io/terraform-vpn.drawio.bkp)
 
 **Effect:**
 
