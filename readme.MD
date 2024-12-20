@@ -12,6 +12,8 @@ Command: You can taint a resource using:
 terraform taint <resource>
 ```
 
+![alt text](Draw.io/.$terraform-vpn.drawio.bkp)
+
 **Effect:**
 
 The resource will be destroyed and then recreated, even if there are no configuration changes. This can be useful when a resource becomes corrupted or you want to trigger a fresh start for it.
