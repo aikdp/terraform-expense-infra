@@ -20,7 +20,7 @@ module "vpn" {
     var.common_tags,
     var.vpn_tags,
         {
-          Name = "${local.resource_name}-vpn"
+          Name = "${local.resource_name}"
         }
   )
 }

@@ -21,3 +21,7 @@ output "ansible_sg_id" {
 output "vpn_sg_id" {
   value       = module.vpn_sg.id
 }
+
+output "web_alb_sg_id" {
+  value       = module.web_alb_sg.id
+}

@@ -6,8 +6,8 @@ module "app_alb" {
   vpc_id  = local.vpc_id
   subnets = local.private_subnet_id               #app-alb is for backend, so we rae using Private subnet (AZ)
   internal = true                                 #default is false. Not giving  public access, it is backend right
-  security_groups = [local.app_alb_sg_id]         # LIST sg is giving for ALB eqyalent to manually selecing sg id.
-  create_security_group = false                   #defalut is true, if not give flase, it will take default sg id
+  security_groups = [local.app_alb_sg_id]    # LIST sg is giving for ALB eqyalent to manually selecing sg id.
+  create_security_group = false        #defalut is true, if not give flase, it will take default sg id
   enable_deletion_protection = false            #put this false, it will dlete, otherwise not delete
   tags = merge(
     var.common_tags,
@@ -28,7 +28,7 @@ resource "aws_lb_listener" "http" {
 
     fixed_response {
       content_type = "text/html"
-      message_body = "<h1>Hello, iam from APPLICATION Load Balancer</h1>"
+      message_body = "<h1>Hello, iam from APP ALB HTTP APPLICATION Load Balancer</h1>"
       status_code  = "200"
     }
   }

@@ -1,11 +1,11 @@
 #Use SSM parameter to store in aws and get the info using data source
-data "aws_ssm_parameter" "backend_sg_id" {
-  name = "/${var.project_name}/${var.environment}/backend_sg_id"    #Craete VPN SG first then Store it and take it
+data "aws_ssm_parameter" "frontend_sg_id" {
+  name = "/${var.project_name}/${var.environment}/frontend_sg_id"    #Craete VPN SG first then Store it and take it
 }
 
 #Use SSM parameter to store in aws and get the info using data source
-data "aws_ssm_parameter" "private_subnet_ids" {
-  name = "/${var.project_name}/${var.environment}/private_subnet_ids"
+data "aws_ssm_parameter" "public_subnet_ids" {
+  name = "/${var.project_name}/${var.environment}/public_subnet_ids"
 }
 
 #Use SSM parameter store to store in aws and get the info using data source
@@ -36,6 +36,6 @@ data "aws_ami" "devops" {
 
 
 #Use SSM parameter store to store in aws and get the info using data source
-data "aws_ssm_parameter" "app_alb_listener_arn" {
-  name = "/${var.project_name}/${var.environment}/app_alb_listener_arn"
+data "aws_ssm_parameter" "web_alb_listener_arn" {
+  name = "/${var.project_name}/${var.environment}/web_alb_listener_arn"
 }

@@ -280,3 +280,71 @@ resource "aws_security_group_rule" "backend_vpn_8080" {
   source_security_group_id = module.vpn_sg.id   
   security_group_id = module.backend_sg.id 
 }
+
+
+#Create WEB ALB Security Group
+module "web_alb_sg" {
+    source = "git::https://github.com/aikdp/terraform-aws-security-group.git?ref=main"
+    project_name = var.project_name
+    environment = var.environment
+    common_tags = var.common_tags
+    sg_name = "web-alb"
+    sg_tags = var.web_alb_sg_tags
+    vpc_id = local.vpc_id   #get it from data source, we already store at ssm parameter
+}
+
+
+#WEB ALB accepting form Public http 80
+resource "aws_security_group_rule" "web_alb_http" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]   
+  security_group_id = module.web_alb_sg.id 
+}
+
+#WEB ALB accepting form Public HTTPS 443
+resource "aws_security_group_rule" "web_alb_https" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]   
+  security_group_id = module.web_alb_sg.id 
+}
+
+
+
+#FRONTNED
+
+#Create Security group rules for allow traffic from VPN to frontend
+resource "aws_security_group_rule" "frontend_vpn" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  source_security_group_id = module.vpn_sg.id  
+  security_group_id = module.frontend_sg.id 
+}
+
+#Create Security group rules for allow traffic from web albto frontend
+resource "aws_security_group_rule" "frontend_web_alb" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  source_security_group_id = module.web_alb_sg.id  
+  security_group_id = module.frontend_sg.id 
+}
+
+
+#Create Security group rules for allow traffic from frontend to App ALB
+resource "aws_security_group_rule" "app_alb_frontend" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  source_security_group_id = module.frontend_sg.id  
+  security_group_id = module.app_alb_sg.id 
+}
